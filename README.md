@@ -1,44 +1,44 @@
 <img width="1580" height="867" alt="Screenshot 2026-04-22 133629" src="https://github.com/user-attachments/assets/9a6070e0-844a-4789-a4b1-51e4c4e9a7fd" />
 <img width="681" height="430" alt="Screenshot 2026-04-22 133608" src="https://github.com/user-attachments/assets/ead76789-ea2e-4427-9099-ed5d3a1e9ddc" />
 
-💾 Unity Data Persistence: JSON Save System
-A Technical Exploration of Robust Game State Serialization
+💾 Unity Data Persistence: Secure JSON Save System
+A Modular Architecture for Persistent & Encrypted Game States
 
 📖 Project Overview
-This project serves as a comprehensive practice ground for implementing Data Persistence in Unity. The core objective was to create a system that ensures game progress (scenes, variables, and states) is reliably saved to and loaded from a local JSON file, even after the application is fully closed.
+This project is an advanced exploration of Data Persistence in Unity. While the core objective is to save and load game states (scenes, variables, and progress), this introduces a Security Layer to prevent "Save File Editing" and cheating.
 
-🛠️ The Persistence Architecture
-The system is built on a clean, modular architecture to ensure scalability:
+🛡️ Security & Encryption
+To protect the integrity of the game data, I implemented an XOR-based Encryption System.
 
-DataPersistenceManager: The "brain" of the system. It handles the Save/Load flow and ensures all game objects are synchronized.
+Toggleable Security: The DataPersistenceManager includes a boolean toggle. You can choose to save in Plain JSON (for debugging) or Encrypted Format (for production).
 
-FileDataHandler: Manages the actual I/O operations (reading and writing the .json files to the disk).
+Anti-Cheat: When encryption is enabled, the .json file becomes unreadable to humans. If a player tries to modify their coin count or death toll in a text editor, the file will remain protected.
 
-IDataPersistence (Interface): A custom interface that allows any script (like a player’s stats or inventory) to easily "subscribe" to the save system.
-
-GameData: The data container class that defines exactly what variables are being saved.
-
-SerializableDictionary: A custom utility to overcome Unity's limitation of not being able to see dictionaries in the inspector, allowing for more complex data storage.
+Serialization: The system converts complex C# objects into structured JSON strings before the encryption layer processes them for disk storage.
 
 🕹️ Gameplay & Mechanics
-To test the architecture, I implemented a simple but effective game loop:
+Seamless Auto-Save: The game utilizes OnApplicationQuit to automatically save your progress.
 
-Coin Collection: Collect coins to increase your total count.
+Persistent Stats: Tracks Coin Collection and Death Counts (triggered by the "Red Plate" hazard).
 
-The "Red Plate" Hazard: Stepping on the red plate triggers a "Death Event," which increments your Death Count.
+Main Menu Logic: * New Game: Wipes the existing JSON to start fresh.
 
-Persistence Logic: Both your Coin Total and Death Count are tracked and saved automatically.
+Load Game: Decrypts and deserializes the saved data to restore the session.
 
-📁 Main Menu Logic
-The game features a fully functional Main Menu to manage the JSON lifecycle:
+🛠️ The Persistence Architecture
+DataPersistenceManager: The central hub that triggers saves and loads.
 
-New Game: Triggers a fresh initialization, resetting the GameData to 0 coins and 0 deaths.
+FileDataHandler: Handles the I/O and contains the Encryption/Decryption logic.
 
-Load Game: Retrieves the existing JSON file from the local directory and restores the player's previous state.
+IDataPersistence: An interface that allows any script to become "save-aware" with zero friction.
+
+SerializableDictionary: A utility class that enables Unity to save and display Dictionaries—something it cannot do by default.
+
+📁 Technical Note: Save Location
+The data is stored at Application.persistentDataPath. Even when encrypted, the file remains lightweight and efficient.
 
 🛠️ How to Use
-
-Engine: Unity 
+Engine: Unity
 
 Storage Format: JSON (.json)
 
