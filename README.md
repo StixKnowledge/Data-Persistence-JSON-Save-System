@@ -37,7 +37,8 @@ New Game: Triggers a fresh initialization, resetting the GameData to 0 coins and
 Load Game: Retrieves the existing JSON file from the local directory and restores the player's previous state.
 
 🛠️ How to Use
-Engine: Unity (2022.3.43f1)
+
+Engine: Unity 
 
 Storage Format: JSON (.json)
 
