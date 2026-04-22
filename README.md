@@ -5,7 +5,10 @@
 A Modular Architecture for Persistent & Encrypted Game States
 
 📖 Project Overview
+
 This project is an advanced exploration of Data Persistence in Unity. While the core objective is to save and load game states (scenes, variables, and progress), this introduces a Security Layer to prevent "Save File Editing" and cheating.
+
+A robust Technical Framework designed to handle complex game states in Unity. By combining JSON Serialization with a custom XOR Encryption layer, it provides a secure and developer-friendly way to manage data. The system is built using the Interface Pattern, making it completely decoupled—meaning you can add "Save/Load" functionality to any script with just one line of code.
 
 🛡️ Security & Encryption
 To protect the integrity of the game data, I implemented an XOR-based Encryption System.
